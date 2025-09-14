@@ -12,10 +12,11 @@ import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -30,8 +31,7 @@ public class UtilsServiceImpl implements UtilsService {
     private static final String DATE_FORMAT = "dd/MM/yyyy";
 
     public void readExcel() {
-        String excelFilePath = "movimientos.xls";
-        try (FileInputStream fis = new FileInputStream(excelFilePath);
+        try (InputStream fis = new ClassPathResource("movimientos.xls").getInputStream();
              Workbook workbook = new HSSFWorkbook(fis)) {
             Sheet sheet = workbook.getSheetAt(0);
 
